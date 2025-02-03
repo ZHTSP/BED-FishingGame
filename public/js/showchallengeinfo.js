@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .then((challenges) => {
       const challenge = challenges.find((c) => c.challenge_id == challengeId);
-
       if (!challenge) {
         const challengeInfo = document.getElementById("challengeInfo");
         challengeInfo.innerHTML = "<p>Challenge not found.</p>";
@@ -82,11 +81,11 @@ function displayEditChallengeForm(challenge) {
           <h5 class="card-title">Edit Challenge</h5>
           <div class="mb-3">
             <label for="challengeName" class="form-label">Challenge Name</label>
-            <input type="text" class="form-control" id="challengeName" value="${challenge.challenge}" required>
+            <input type="text" class="form-control" id="challengeName" required>
           </div>
           <div class="mb-3">
             <label for="skillPoints" class="form-label">Skill Points Reward</label>
-            <input type="number" class="form-control" id="skillPoints" value="${challenge.skillpoints}" required>
+            <input type="number" class="form-control" id="skillpoints_edit"  required>
           </div>
           <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
@@ -110,17 +109,21 @@ function updateChallenge(challengeId) {
     return;
   }
 
-  const challengeName = document.getElementById("challengeName").value;
-  const skillPoints = document.getElementById("skillPoints").value;
+  // Decode the JWT token to get the user ID
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  console.log(payload)
+  const userId = payload.userId;
 
-  // Include challenge_id in the body if your backend requires it
+  const challengeName = document.getElementById("challengeName").value;
+  const skillpoints_edit = document.getElementById("skillpoints_edit").value;
+  // Include user_id in the request body
   const requestBody = {
-    challenge_id: challengeId,
+    user_id: userId,
     challenge: challengeName,
-    skillpoints: parseInt(skillPoints), // Ensure skillpoints is a number
+    skillpoints: skillpoints_edit, 
   };
 
-  fetch("http://localhost:3000/api/challenges", { // Note the updated URL
+  fetch(`http://localhost:3000/api/challenges/${challengeId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -129,9 +132,11 @@ function updateChallenge(challengeId) {
     body: JSON.stringify(requestBody),
   })
     .then((response) => {
+      console.log(requestBody)
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      console.log(response.json)
       return response.json();
     })
     .then((data) => {
@@ -144,6 +149,7 @@ function updateChallenge(challengeId) {
       alert("Failed to update challenge.");
     });
 }
+
 
 
 function fetchChallengeRecords(challengeId) {

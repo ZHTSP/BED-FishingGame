@@ -24,7 +24,7 @@ module.exports.selectAll = (callback) =>
     }
 
 //6
-module.exports.updateById = (data, callback) =>
+module.exports.updateChallengeById = (data, callback) =>
     {
         const SQLSTATMENT = `
         UPDATE fitnesschallenge

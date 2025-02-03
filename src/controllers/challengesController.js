@@ -42,7 +42,7 @@ module.exports.readAllChallenges = (req, res, next) => {
 
 //6
 module.exports.updateChallengeById = (req, res, next) => {
-    if (req.body.challenge == undefined, req.body.user_id == undefined, req.body.skillpoints  == undefined) {
+    if (req.body.challenge == undefined || req.body.user_id == undefined || req.body.skillpoints  == undefined) {
       res.status(400).send("message: Missing required data");
       return;
     }
@@ -72,7 +72,7 @@ module.exports.updateChallengeById = (req, res, next) => {
     }
     };
   }
-    model.updateById(data, callback);
+    model.updateChallengeById(data, callback);
   };
 
 //middleware
