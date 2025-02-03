@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  
   const url = new URL(document.URL);
   const urlParams = url.searchParams;
   const challengeId = urlParams.get("challenge_id");
@@ -35,6 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching challenge data:", error);
     });
 });
+
+  //date and time formatted
+  const now = new Date();
+  const dateTime = now.toISOString().replace("T", " ").split('.')[0];
 
 function displayChallengeInfo(challenge) {
   const challengeInfo = document.getElementById("challengeInfo");
@@ -217,7 +222,7 @@ function completeChallenge(challengeId) {
   const requestBody = {
     user_id: userId,
     completed: completed,
-    creation_date: new Date().toISOString().split("T")[0],
+    creation_date: dateTime,
     notes: notes,
   };
 
