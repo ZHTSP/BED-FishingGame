@@ -13,3 +13,8 @@ module.exports.selectAll = (callback) =>
 
 pool.query(SQLSTATMENT, callback);
 }
+
+module.exports.deleteById = (data, callback) => {
+  const query = "DELETE FROM fish WHERE fish_id = ?";
+  pool.query(query, [data.fish_id], callback);
+};

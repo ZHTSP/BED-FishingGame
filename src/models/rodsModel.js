@@ -73,3 +73,26 @@ module.exports.updateById = (data, callback) =>
         
         pool.query(SQLSTATMENT, VALUES, callback);
         }
+
+// Select rod by user_id and rod_id to check durability
+module.exports.selectUserRodById = (data, callback) => {
+    const SQLSTATMENT = `
+      SELECT * FROM userrods
+      WHERE user_id = ? AND rod_id = ?;
+    `;
+    const VALUES = [data.user_id, data.rod_id];
+  
+    pool.query(SQLSTATMENT, VALUES, callback);
+  };
+  
+  // Function to delete a rod for a specific user
+  module.exports.deleteUserRodById = (data, callback) => {
+    const SQLSTATMENT = `
+      DELETE FROM userrods
+      WHERE user_id = ? AND rod_id = ?;
+    `;
+    const VALUES = [data.user_id, data.rod_id];
+  
+    pool.query(SQLSTATMENT, VALUES, callback);
+  };
+  

@@ -14,7 +14,7 @@ module.exports.readUserRodByIdsAndNotBroken = (req, res, next) => {
       } else {
         if (results.length == 0) {
           res.status(404).json({
-            message: "You don't own a rod, go buy one.",
+            message: "You don't own a rod or your rod is broken, go buy one.",
           });
         } else {
             res.locals.user_rod_id = results[0].user_rod_id

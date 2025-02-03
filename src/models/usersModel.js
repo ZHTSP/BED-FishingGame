@@ -56,4 +56,53 @@ pool.query(SQLSTATMENT, VALUES, callback);
 
 
 
+//////////////////////////////////////////////////////
+// SELECT USER BY USERNAME
+//////////////////////////////////////////////////////
+module.exports.selectByUsername = (data, callback) =>
+    {
+        const SQLSTATMENT = `
+        SELECT * FROM user
+        WHERE username = ?;
+        `;
+    const VALUES = [data.username];
+    
+    pool.query(SQLSTATMENT, VALUES, callback);
+    }
+//////////////////////////////////////////////////////
+// SELECT USER BY USERNAME OR EMAIL
+//////////////////////////////////////////////////////
+module.exports.selectByUsernameEmail = (data, callback) =>
+    {
+        const SQLSTATMENT = `
+        SELECT * FROM user
+        WHERE username = ? or email = ?;
+        `;
+    const VALUES = [data.username, data.email];
+    
+    pool.query(SQLSTATMENT, VALUES, callback);
+    }
+//////////////////////////////////////////////////////
+// Register user
+//////////////////////////////////////////////////////
+module.exports.insertRegisterSingle = (data, callback) =>
+    {
+        const SQLSTATMENT = `
+        INSERT INTO user (username, email, password)
+        VALUES (?, ?, ?);
+        `;
+    const VALUES = [data.username, data.email, data.password];
+    
+    pool.query(SQLSTATMENT, VALUES, callback);
+    }
+
+
+    module.exports.selectAll = (callback) => {
+        const SQLSTATMENT = `
+          SELECT * FROM User;
+          `;
+      
+        pool.query(SQLSTATMENT, callback);
+      };
+
 

@@ -149,3 +149,44 @@ module.exports.createNewUserRodRelationship = (req, res, next) => {
 
   model.insertSingle(data, callback);
 };
+
+// Delete rod for a specific user if its durability is 0
+module.exports.deleteUserRodIfDurabilityZero = (req, res, next) => {
+  const data = {
+    user_id: req.params.user_id,
+    rod_id: req.params.rod_id
+  };
+
+  const callback = (error, results, fields) => {
+    if (error) {
+      console.error("Error deleteUserRodIfDurabilityZero:", error);
+      res.status(500).json(error);
+    } else {
+      if (results.length == 0) {
+        res.status(404).json({
+          message: "Rod not found or not owned by user"
+        });
+      } else {
+        // If durability is 0, delete the rod for the user
+        if (results[0].durability <= 0) {
+          model.deleteUserRodById(data, (deleteError, deleteResults) => {
+            if (deleteError) {
+              console.error("Error deleting rod for user:", deleteError);
+              res.status(500).json(deleteError);
+            } else {
+              res.status(200).json({
+                message: "Rod deleted due to 0 durability"
+              });
+            }
+          });
+        } else {
+          res.status(200).json({
+            message: "Rod is still intact"
+          });
+        }
+      }
+    }
+  };
+
+  model.selectUserRodById(data, callback);
+};

@@ -30,3 +30,28 @@ module.exports.readFishById = (req, res, next) => {
 
     model.selectById(data, callback);
   };
+
+module.exports.deleteFishById = (req, res, next) => {
+  const data = {
+    fish_id: req.params.fish_id
+  };
+
+  const callback = (error, results, fields) => {
+    if (error) {
+      console.error("Error deleteFishById:", error);
+      res.status(500).json(error);
+    } else {
+      if (results.affectedRows == 0) {
+        res.status(404).json({
+          message: "Fish not found",
+        });
+      } else {
+        res.status(200).json({
+          message: "Fish deleted successfully"
+        });
+      }
+    }
+  };
+
+  model.deleteById(data, callback);
+};

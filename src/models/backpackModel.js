@@ -14,6 +14,12 @@ module.exports.selectAll = (callback) =>
     }
 
 
+module.exports.deleteFish = (data, callback) => {
+    const query = "DELETE FROM backpack WHERE user_id = ? AND fish_id = ?";
+    pool.query(query, [data.user_id, data.fish_id], callback);
+};
+
+
 
 
 
