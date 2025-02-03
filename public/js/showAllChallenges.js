@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   <img src="challenge-images/challenge_${challenge.challenge_id}.png" alt="${challenge.challenge}" class="img-fluid mb-3" style="max-height: 150px;">
                   <h5 class="card-title">${challenge.challenge}</h5>
                   <p class="card-text"><strong>Challenge ID:</strong> ${challenge.challenge_id}</p>
-                  <p class="card-text"><strong>Creator ID:</strong> ${challenge.creator_id}</p>
+                  <p class="card-text"><strong>Creator Name & id:</strong> ${challenge.creator_name} | ${challenge.creator_id}</p>
                   <p class="card-text"><strong>Skill Points:</strong> ${challenge.skillpoints}</p>
                   <button class="btn btn-custom complete-challenge" data-challenge-id="${challenge.challenge_id}">Complete Challenge</button>
                 </div>

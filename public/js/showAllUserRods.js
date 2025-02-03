@@ -107,8 +107,10 @@ function deleteRod(userId, rodId, rodCard, rodName) {
       if (data.message === "Rod deleted successfully") {
         alert(`${rodName} has been deleted due to 0 durability.`);
         rodCard.remove(); // Remove the rod card from the DOM
+        window.location.reload();
       } else {
         alert("Delete rod: " + data.message);
+        window.location.reload();
       }
     })
     .catch((error) => {

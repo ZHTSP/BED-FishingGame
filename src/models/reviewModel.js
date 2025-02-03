@@ -1,13 +1,14 @@
 const pool = require('../services/db');
 
-module.exports.selectAll = (callback) =>
-{
+module.exports.selectAll = (callback) => {
     const SQLSTATMENT = `
-    SELECT * FROM Reviews;
+      SELECT Reviews.id, Reviews.review_amt, Reviews.user_id, Reviews.created_at, User.username
+      FROM Reviews
+      INNER JOIN User ON Reviews.user_id = User.user_id;
     `;
-
+  
     pool.query(SQLSTATMENT, callback);
-}
+  };    
 
 module.exports.selectById = (data, callback) =>
 {
@@ -19,6 +20,16 @@ module.exports.selectById = (data, callback) =>
 
     pool.query(SQLSTATMENT, VALUES, callback);
 }
+
+module.exports.selectByUserId = (data, callback) => {
+    const SQLSTATMENT = `
+      SELECT * FROM Reviews
+      WHERE user_id = ?;
+    `;
+    const VALUES = [data.user_id];
+  
+    pool.query(SQLSTATMENT, VALUES, callback);
+  };
 
 module.exports.insertSingle = (data, callback) =>
 {

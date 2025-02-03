@@ -14,14 +14,20 @@ module.exports.insertSingleChallenge = (data, callback) =>
     }
 
 //5
-module.exports.selectAll = (callback) =>
-    {
-        const SQLSTATMENT = `
-        SELECT * FROM FitnessChallenge ;
-        `;
-    
+module.exports.selectAll = (callback) => {
+    const SQLSTATMENT = `
+      SELECT 
+        FitnessChallenge.challenge_id,
+        FitnessChallenge.challenge,
+        FitnessChallenge.skillpoints,
+        FitnessChallenge.creator_id,
+        User.username AS creator_name
+      FROM FitnessChallenge
+      INNER JOIN User ON FitnessChallenge.creator_id = User.user_id;
+    `;
+  
     pool.query(SQLSTATMENT, callback);
-    }
+  };
 
 //6
 module.exports.updateChallengeById = (data, callback) =>

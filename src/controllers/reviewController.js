@@ -2,41 +2,50 @@ const model = require("../models/reviewModel.js");
 const pool = require("../services/db.js");
 
 module.exports.createReview = (req, res, next) => {
-    if(req.body.review_amt == undefined)
-    {
-        res.status(400).send("Error: review_amt is undefined");
-        return;
+    if (req.body.review_amt == undefined) {
+      res.status(400).send("Error: review_amt is undefined");
+      return;
+    } else if (req.body.review_amt > 5 || req.body.review_amt < 1) {
+      res.status(400).send("Error: review_amt can only be between 1 to 5");
+      return;
+    } else if (req.body.user_id == undefined) {
+      res.status(400).send("Error: user_id is undefined");
+      return;
     }
-    else if(req.body.review_amt > 5 || req.body.review_amt < 1)
-    {
-        res.status(400).send("Error: review_amt can only be between 1 to 5");
+  
+    // Check if the user already has a review
+    const checkData = {
+      user_id: req.body.user_id,
+    };
+  
+    model.selectByUserId(checkData, (error, results, fields) => {
+      if (error) {
+        console.error("Error checking existing review:", error);
+        res.status(500).json(error);
         return;
-    }
-    else if(req.body.user_id == undefined)
-    {
-        res.status(400).send("Error: user_id is undefined");
+      }
+  
+      if (results.length > 0) {
+        res.status(400).send("Error: You can only leave one review.");
         return;
-    }
-
-    const data = {
+      }
+  
+      // If no existing review, proceed to create a new one
+      const data = {
         user_id: req.body.user_id,
-        review_amt: req.body.review_amt
-    }
-
-    console.log("data", data);
-
-    const callback = (error, results, fields) => {
+        review_amt: req.body.review_amt,
+      };
+  
+      model.insertSingle(data, (error, results, fields) => {
         if (error) {
-            console.error("Error createMessage:", error);
-            res.status(500).json(error);
+          console.error("Error createReview:", error);
+          res.status(500).json(error);
         } else {
-            res.status(201).json(results);
+          res.status(201).json(results);
         }
-    }
-
-    model.insertSingle(data, callback);
-}
-
+      });
+    });
+  };
 module.exports.readReviewById = (req, res, next) => {
     const data = {
         id: req.params.id
