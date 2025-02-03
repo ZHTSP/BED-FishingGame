@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Store the token in local storage
             localStorage.setItem("token", responseData.token);
             // Redirect or perform further actions for logged-in user
+            alert('Account registered, please login.')
             window.location.href = "login.html";
           }
         } else {

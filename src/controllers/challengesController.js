@@ -182,7 +182,7 @@ module.exports.createNewCompletion = (req, res, next) => {
       return;
     }
     const data = {
-        user_id: res.locals.user_id,
+        user_id: req.body.user_id,
         completed: req.body.completed,
         creation_date: req.body.creation_date,
         notes: req.body.notes,
@@ -284,4 +284,3 @@ module.exports.readCompleteRecordByChallengeId = (req, res, next) => {
 
   model.selectRecordsByChallengeId(data, callback);
 };
-

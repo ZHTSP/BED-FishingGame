@@ -207,7 +207,7 @@ function displayChallengeRecords(records) {
                   <h5 class="card-title">Record ID: ${record.complete_id}</h5>
                   <p class="card-text">
                     <strong>User:</strong> ${username} (${record.user_id})<br>
-                    <strong>User ID:</strong>  <br>                    <strong>Completed:</strong> ${record.completed ? "Yes" : "No"} <br>
+                    <strong>Completed:</strong> ${record.completed ? "Yes" : "No"} <br>
                     <strong>Creation Date:</strong> ${record.creation_date} <br>
                     <strong>Notes:</strong> ${record.notes || "N/A"}
                   </p>

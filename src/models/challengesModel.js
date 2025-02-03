@@ -15,20 +15,20 @@ module.exports.insertSingleChallenge = (data, callback) =>
 
 //5
 module.exports.selectAll = (callback) => {
-    const SQLSTATMENT = `
+    const SQLSTATEMENT = `
       SELECT 
         FitnessChallenge.challenge_id,
         FitnessChallenge.challenge,
         FitnessChallenge.skillpoints,
         FitnessChallenge.creator_id,
-        User.username AS creator_name
+        COALESCE(User.username, 'No user registered under this ID') AS creator_name
       FROM FitnessChallenge
-      INNER JOIN User ON FitnessChallenge.creator_id = User.user_id;
+      LEFT JOIN User ON FitnessChallenge.creator_id = User.user_id;
     `;
   
-    pool.query(SQLSTATMENT, callback);
+    pool.query(SQLSTATEMENT, callback);
   };
-
+  
 //6
 module.exports.updateChallengeById = (data, callback) =>
     {
