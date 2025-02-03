@@ -43,7 +43,7 @@ function displayChallengeInfo(challenge) {
     <div class="col-md-6 offset-md-3">
       <div class="card shadow p-3">
         <div class="card-body">
-          <img src="challenge-images/challenge_${challenge.challenge_id}.png" alt="${challenge.challenge}" class="img-fluid mb-3" style="max-height: 150px;">
+        <img src="challenge-images/challenge_${challenge.challenge_id}.png" alt="${challenge.challenge}" class="img-fluid mb-3" style="max-height: 150px;" onerror="this.onerror=null; this.src='challenge-images/challenge_new.png';">
           <h5 class="card-title">${challenge.challenge}</h5>
           <p class="card-text">
             <strong>Challenge ID:</strong> ${challenge.challenge_id} <br>

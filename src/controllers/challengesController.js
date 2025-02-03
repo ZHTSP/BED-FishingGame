@@ -284,3 +284,4 @@ module.exports.readCompleteRecordByChallengeId = (req, res, next) => {
 
   model.selectRecordsByChallengeId(data, callback);
 };
+
