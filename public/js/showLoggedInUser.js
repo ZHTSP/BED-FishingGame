@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentUsername = payload.username; // Extract username
     
     // Display welcome message with username
-    welcomeMessage.textContent = `Welcome ${currentUsername}`;
+    welcomeMessage.innerHTML = `Welcome ${currentUsername}<br><h4>Your User Id is: ${currentUserId}<h4>`;
 
 
     // Fetch user's fish data
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Display total fish count for the current user
             fishCountMessage.textContent = `You currently have ${userFishes.length} fish${userFishes.length === 1 ? '' : 'es'}. `;
+            fishCountMessage.style.fontSize = "24px";
 
             if (userFishes.length > 0) {
                 // Find the heaviest fish by comparing the size

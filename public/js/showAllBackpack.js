@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const payload = JSON.parse(atob(token.split('.')[1])); // Decode JWT payload
     const currentUserId = payload.userId; // Extract userId
 
-    let showOnlyUserFishes = false; // Toggle state
+    let showOnlyUserFishes = false; 
 
     function fetchAndRenderFishes() {
         fetch("http://localhost:3000/api/backpack", {

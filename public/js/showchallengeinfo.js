@@ -174,35 +174,58 @@ function fetchChallengeRecords(challengeId) {
 }
 
 function displayChallengeRecords(records) {
-  const challengeRecords = document.getElementById("challengeRecords");
+  const challengeRecordsContainer = document.getElementById("challengeRecords");
 
   if (records.length === 0) {
-    challengeRecords.innerHTML = "<p>No challenge records found.</p>";
+    challengeRecordsContainer.innerHTML = "<p>No challenge records found.</p>";
     return;
   }
 
-  const recordsHTML = records
-    .map(
-      (record) => `
-      <div class="col-md-4 mb-4">
-        <div class="card shadow p-3 ${record.completed ? "border-success" : "border-warning"}">
-          <div class="card-body">
-            <h5 class="card-title">Record ID: ${record.complete_id}</h5>
-            <p class="card-text">
-              <strong>User ID:</strong> ${record.user_id} <br>
-              <strong>Completed:</strong> ${record.completed ? "Yes" : "No"} <br>
-              <strong>Creation Date:</strong> ${record.creation_date} <br>
-              <strong>Notes:</strong> ${record.notes || "N/A"}
-            </p>
-          </div>
-        </div>
-      </div>
-    `
-    )
-    .join("");
+  // First, fetch all users to create a mapping from user_id to username.
+  fetch("http://localhost:3000/api/users")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error while fetching users! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((users) => {
+      // Create a mapping from user_id to username.
+      const userMap = {};
+      users.forEach((user) => {
+        userMap[user.user_id] = user.username;
+      });
 
-  challengeRecords.innerHTML = recordsHTML;
+      // Build the HTML for each challenge record.
+      const recordsHTML = records
+        .map((record) => {
+          const username = userMap[record.user_id] || "N/A";
+          return `
+            <div class="col-md-4 mb-4">
+              <div class="card shadow p-3 ${record.completed ? "border-success" : "border-warning"}">
+                <div class="card-body">
+                  <h5 class="card-title">Record ID: ${record.complete_id}</h5>
+                  <p class="card-text">
+                    <strong>User:</strong> ${username} (${record.user_id})<br>
+                    <strong>User ID:</strong>  <br>                    <strong>Completed:</strong> ${record.completed ? "Yes" : "No"} <br>
+                    <strong>Creation Date:</strong> ${record.creation_date} <br>
+                    <strong>Notes:</strong> ${record.notes || "N/A"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+
+      challengeRecordsContainer.innerHTML = recordsHTML;
+    })
+    .catch((error) => {
+      console.error("Error fetching users:", error);
+      challengeRecordsContainer.innerHTML = "<p>Error loading challenge records.</p>";
+    });
 }
+
 
 function completeChallenge(challengeId) {
   const token = localStorage.getItem("token");
