@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "challenges.html", 
         "backpack.html", 
         "rods.html", 
+        "reviews.html",
     ];
 
     restrictedButtons.forEach(button => {
