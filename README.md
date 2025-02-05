@@ -16,6 +16,7 @@ Welcome to the **Fishing Game**! This project simulates a fishing game where use
    - [View Fishes](#view-fishes)
    - [View owned rods](#view-owned-rods)
    - [View Fishes owned](#view-fishes-owned)
+   - [Review](#review)
 3. [Gameplay Overview](#gameplay-overview)
 
 ---
@@ -116,6 +117,13 @@ Start fishing by selecting the user that is fishing and the rod that is used to 
 `http://localhost:3000/backpack.html`
 
 View fishes that users caught.
+
+---
+
+### Review
+`http://localhost:3000/reviews.html`
+
+Give this game a review!
 
 
 ## Gameplay Overview
