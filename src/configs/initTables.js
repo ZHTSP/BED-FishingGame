@@ -110,7 +110,10 @@ bcrypt.hash('1234', saltRounds, (error, hash) => {
       );
 
       INSERT INTO User (username, email, password, skillpoints) VALUES
-      ('admin', 'a@a.com', '${hash}', 999999);
+      ('admin', 'a@a.com', '${hash}', 999999),
+      ('sai yong', 'saiyong@hotmail.com', '${hash}', 230),
+      ('scouser123', 'scouser@scousermail.com', '${hash}', 0),
+      ('john doe', 'john@joemail.com', '${hash}', 666);
 
       INSERT INTO Rods (rod_id, rod_name, durability, required_skillpoints) VALUES
       (1, "Basic Rod", 50, 0),

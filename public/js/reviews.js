@@ -50,7 +50,7 @@ function displayReviews(reviews) {
             <h6 class="card-title">User id: ${review.user_id}</h5>
             <p class="card-text">
               <strong>Rating:</strong> ${review.review_amt} <br>
-              <strong>Date:</strong> ${review.created_at}
+              <strong>Initial review Date:</strong> ${review.created_at}
             </p>
             ${
               userId === review.user_id
