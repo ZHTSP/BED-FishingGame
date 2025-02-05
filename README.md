@@ -6,15 +6,17 @@ Welcome to the **Fishing Game**! This project simulates a fishing game where use
 1. [Setup](#setup)
 2. [Endpoints](#endpoints)
    - [Create User](#create-user)
+   - [User login](#login)
+   - [Profile](#profile)
    - [View Rods Shop](#view-rods-shop)
    - [Complete Challenges](#complete-challenges)
+   - [Create Challenges](#create-challenges)
    - [Purchase Rod](#purchase-rod)
    - [Start Fishing](#start-fishing)
    - [View Fishes](#view-fishes)
    - [View owned rods](#view-owned-rods)
    - [View Fishes owned](#view-fishes-owned)
 3. [Gameplay Overview](#gameplay-overview)
-4. [Example Usage](#example-usage)
 
 ---
 
@@ -32,7 +34,7 @@ Make sure you have the following installed:
 3. Set up your database with the appropriate schema (users, rods, userrods, challenges).
 4. Run the server:
    ```bash
-   npm start
+   npm run dev
    ```
 5. The game will be available at `http://localhost:3000`.
 
@@ -41,189 +43,79 @@ Make sure you have the following installed:
 ## Endpoints
 
 ### Create User
-**POST** `http://localhost:3000/users`
+`http://localhost:3000/register.html`
 
 Create a new user with a unique username.
 
-#### Request Body:
-```json
-{
-  "username": "socuser321"
-}
-```
+---
 
-#### Response:
-- **Success**: 201 Created
-- **Error**: Username already exists
+### Login
+`http://localhost:3000/login.html`
+
+Login to your user
+
+---
+
+### Profile
+`http://localhost:3000/profile.html`
+
+Basic information about your profile
 
 ---
 
 ### Complete Challenges
-**POST** `http://localhost:3000/challenges/:challenge_id`
+`http://localhost:3000/challenges.html`
 
 Complete challenges to earn skillpoints.
 
-#### Request Body:
-```json
-{
-  "user_id": 1,
-  "completed": true,
-  "creation_date": "2024-11-30",
-  "notes": "A fitter me!"
-}
-```
+---
 
-#### Response:
-- **Success**: 200 OK - Skillpoints awarded
-- **Error**: 404 Not Found - User or Challenge does not exist
+### Create Challenges
+
+`http://localhost:3000/createchallenge.html`
+
+Create challenges for other users to complete and earn skillpoints
 
 ---
 ### View Rods Shop
-**GET** `http://localhost:3000/rods`
+`http://localhost:3000/rods.html`
 
-Retrieve the list of available rods in the shop.
-
-#### Example Response:
-```json
-[
-  {"rod_id": 1, "rod_name": "Basic Rod", "durability": 50, "required_skillpoints": 0},
-  {"rod_id": 2, "rod_name": "Advanced Rod", "durability": 150, "required_skillpoints": 100},
-  {"rod_id": 3, "rod_name": "Master Rod", "durability": 200, "required_skillpoints": 150},
-  {"rod_id": 4, "rod_name": "Steady Rod", "durability": 300, "required_skillpoints": 200},
-  {"rod_id": 5, "rod_name": "Nocturnal Rod", "durability": 700, "required_skillpoints": 400},
-  {"rod_id": 6, "rod_name": "Mythical Rod", "durability": 1000, "required_skillpoints": 500}
-]
-```
+View all the rods that could be purchased in the shop.
 
 ---
 
 ### Purchase Rod
-**POST** `http://localhost:3000/rods/purchase/:rod_id`
+`http://localhost:3000/rods.html`
 
-Purchase a rod by providing the username and specifying the rod ID.
-
-#### Request Body:
-```json
-{
-  "username": "socuser321"
-}
-```
-
-#### Response:
-- **Success**: 201 Created - `"Rod successfully purchased"`
-- **Error**: 402 Payment Required - Not enough skillpoints
-- **Error**: 404 Not Found - Rod does not exist or already owned
+Purchase a rod by clicking on the rod that you want to purchase.
 
 ---
 
 ### View Fishes
-**GET** `http://localhost:3000/backpack`
+`http://localhost:3000/backpack.html`
 
 View all fishes in the database.
-
-#### Example Response:
-```json
-[
-    {
-        "fish_id": 1,
-        "fish_name": "Golden Carp",
-        "size": 15
-    },
-    {
-        "fish_id": 2,
-        "fish_name": "Silver Trout",
-        "size": 10
-    },
-    {
-        "fish_id": 3,
-        "fish_name": "Black Bass",
-        "size": 20
-    },
-    {
-        "fish_id": 4,
-        "fish_name": "Greenwater Shiner",
-        "size": 5
-    },
-    {
-        "fish_id": 5,
-        "fish_name": "Rustscale Tilapia",
-        "size": 13
-    },
-    {
-        "fish_id": 6,
-        "fish_name": "Silverstream Minnow",
-        "size": 6
-    }
-]
-```
 
 ---
 
 ### View owned rods
-**GET** `http://localhost:3000/userrods`
+`http://localhost:3000/userrods.html`
 
-View all rods that users own
+View all the rods owned by each user
 
-#### Example Response:
-```json
-[
-    {
-        "user_rod_id": 1,
-        "user_id": 1,
-        "username": "socuser321",
-        "rod_id": 2,
-        "rod_name": "Advanced Rod",
-        "durability": 120
-    }
-]
-```
 ---
 
 ### Start fishing
-**POST** `http://localhost:3000/fishing/:user_id/:rod_id`
+`http://localhost:3000/fishing.html`
 
 Start fishing by selecting the user that is fishing and the rod that is used to fish
-
-#### Response:
-- **Success**: 201 Created - `"message: You have caught a fish! Fish caught:[fish_name]"`
-- **Error**: 404 Not Found - You don't own a rod, go buy one.
 
 ---
 
 ### View Fishes owned
-**GET** `http://localhost:3000/backpack`
+`http://localhost:3000/backpack.html`
 
-View fishes that the user had caught
-
-#### Example Response:
-```json
-[
-    {
-        "id": 1,
-        "user_id": 1,
-        "username": "socuser321",
-        "fish_id": 2,
-        "fish_name": "Silver Trout",
-        "size": 10
-    },
-    {
-        "id": 2,
-        "user_id": 1,
-        "username": "socuser321",
-        "fish_id": 18,
-        "fish_name": "Bristleback Pike",
-        "size": 20
-    },
-    {
-        "id": 3,
-        "user_id": 1,
-        "username": "socuser321",
-        "fish_id": 13,
-        "fish_name": "Goldencrest Barb",
-        "size": 12
-    }
-]
-```
+View fishes that users caught.
 
 
 ## Gameplay Overview
@@ -252,57 +144,10 @@ View fishes that the user had caught
    Complete more challenges to unlock better rods and catch more fishes!
 ---
 
-## Example Usage
-
-### 1. Create a User
-**POST** `http://localhost:3000/users`
-```json
-{
-  "username": "user123"
-}
-```
-
-### 2. Complete a Challenge
-**POST** `http://localhost:3000/challenges/1`
-```json
-{
-  "user_id": 1,
-  "completed": true,
-  "creation_date": "2024-11-30",
-  "notes": "Caught my first fish!"
-}
-```
-
-### 3. View Rods Shop
-**GET** `http://localhost:3000/rods`
-
-
-### 4. Purchase a Rod
-**POST** `http://localhost:3000/rods/purchase/1`
-```json
-{
-  "username": "socuser321"
-}
-```
-
-### 5. View rods owned(userrods)
-**GET** 
-`http://localhost:3000/userrods`
-
-
-### 5. Start fishing
-**POST** 
-`http://localhost:3000/fishing/:user_id/:rod_id`
-
-### 5. View fishes caught
-**GET**
-`http://localhost:3000/backpack`
----
-
 
 ## Notes
-- Ensure all data sent matches the expected structure to avoid errors.
 - The `skillpoints` system is vital for progression; complete challenges to earn more points.
+- Read `http://localhost:3000/howtoplay.html` for general information about the game.
 
 Enjoy the fishing game!
 
