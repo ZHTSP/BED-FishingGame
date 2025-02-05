@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
             scene.remove(currentModel);  // Remove the previous model
         }
 
-        let modelPath = `fish-models/${rodType.toLowerCase().replace(' ', '-')}-rod.glb`;
+        let modelPath = `3d-models/${rodType.toLowerCase().replace(' ', '-')}-rod.glb`;
         loader.load(modelPath, function (gltf) {
             currentModel = gltf.scene;
             currentModel.scale.set(1.5, 1.5, 1.5);

@@ -17,7 +17,7 @@ scene.add(directionalLight);
 
 // Load the fish model
 const loader = new THREE.GLTFLoader();
-loader.load("fish-models/fish.glb", function (gltf) {
+loader.load("3d-models/fish.glb", function (gltf) {
     const fish = gltf.scene;
     fish.scale.set(0.5, 0.5, 0.5);
     fish.position.set(0, 0, 0.5);

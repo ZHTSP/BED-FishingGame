@@ -112,8 +112,8 @@ bcrypt.hash('1234', saltRounds, (error, hash) => {
       INSERT INTO User (username, email, password, skillpoints) VALUES
       ('admin', 'a@a.com', '${hash}', 999999),
       ('sai yong', 'saiyong@hotmail.com', '${hash}', 230),
-      ('scouser123', 'scouser@scousermail.com', '${hash}', 0),
-      ('john doe', 'john@joemail.com', '${hash}', 666);
+      ('john doe', 'john@joemail.com', '${hash}', 666),
+      ('scouser123', 'scouser@scousermail.com', '${hash}', 0);
 
       INSERT INTO Rods (rod_id, rod_name, durability, required_skillpoints) VALUES
       (1, "Basic Rod", 50, 0),
@@ -157,17 +157,33 @@ bcrypt.hash('1234', saltRounds, (error, hash) => {
       (26, "Luminous Reefshark", 400),
 
       -- Legendary Fish
-      (27, "Titanshadow Leviathan", 999),
-      (28, "Celestial Abyssangler", 1500),
+      (27, "Celestial Abyssangler", 999),
+      (28, "Titanshadow Leviathan", 1500),
+      (29, "Sphyrna mokarran", 1800),
 
-      -- Mythical fish(best fish),
-      (29, "Grandpa's Carp", 1952),
+      -- Mythical fish(best fish)
+      (30, "Grandpa's Carp", 1952);
 
-      -- Lebron
-      (30, "Lebron James", 2003);
-
-
+      INSERT INTO Backpack (user_id, fish_id) VALUES
+      (1, 30),
+      (2, 15),
+      (2, 26),
+      (3, 14),
+      (3, 17),
+      -- random fish for john doe(userid3)
+      ((SELECT user_id FROM User WHERE username = 'john doe'), FLOOR(1 + (RAND() * 30)));
       
+      INSERT INTO UserRods (user_id, rod_id, durability) VALUES
+      (1, 1, 50),
+      (1, 2, 0),
+      (1, 3, 200),
+      (1, 4, 300),
+      (1, 5, 700),
+      (1, 6, 9999),
+      (2, 1, 0),
+      (2, 3, 180),
+      (3, 1, 20),
+      (3, 2, 10);
 
       `;
 
