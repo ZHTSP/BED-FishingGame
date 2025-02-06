@@ -83,7 +83,7 @@ function getLoggedInUserId() {
   const token = localStorage.getItem("token");
   if (!token) return null;
 
-  const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
+  const payload = JSON.parse(atob(token.split(".")[1]));
   return payload.userId;
 }
 
@@ -94,7 +94,7 @@ function deleteRod(userId, rodId, rodCard, rodName) {
   fetch(url, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`, // Include the token for authentication
+      Authorization: `Bearer ${localStorage.getItem("token")}`, 
     },
   })
     .then((response) => {
