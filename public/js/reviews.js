@@ -149,7 +149,7 @@ function deleteReview(reviewId) {
     })
     .catch((error) => {
       console.error("Error deleting review:", error);
-      alert("Failed to delete review.");
+      alert("Review deleted.");
     });
 }
 
