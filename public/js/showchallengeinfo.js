@@ -264,8 +264,8 @@ function completeChallenge(challengeId) {
       return response.json();
     })
     .then((data) => {
-      console.log("Challenge completed successfully:", data);
-      alert("Challenge completed successfully!");
+      console.log("Challenge submitted successfully:", data);
+      alert("Challenge submitted successfully!");
       window.location.reload();
     })
     .catch((error) => {
