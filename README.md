@@ -20,9 +20,7 @@ Welcome to the **Fishing Game**! This project simulates a fishing game where use
 3. [Gameplay Overview](#gameplay-overview)
 
 ---
-1. Yeo Yen Ting
-2. Wan Jing Hng
-3. Zhang Haotian
+
 ## Setup
 Make sure you have the following installed:
 - Node.js
